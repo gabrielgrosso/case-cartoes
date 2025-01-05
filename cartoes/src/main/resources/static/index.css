@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #121212; /* Fundo escuro */
+    color: #e0e0e0; /* Texto claro */
+    text-align: center; /* Centraliza conteúdo */
+}
+
+h1 {
+    color: #ffffff; /* Título em branco */
+    margin-bottom: 30px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ocupa a tela toda */
+}
+
+.button-container {
+    display: flex;
+    gap: 20px; /* Espaçamento entre os botões */
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 16px;
+    background-color: #0011ff; /* Botão verde */
+    color: #ffffff; /* Texto branco */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4223f0; /* Cor do botão ao passar o mouse */
+}

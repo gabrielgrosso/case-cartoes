@@ -1,6 +1,5 @@
-const apiUrl = 'http://localhost:8080/api/beneficios';  // URL da API
+const apiUrl = 'http://localhost:8080/api/beneficios';
 
-// Função para listar os benefícios
 function listarBeneficios() {
     fetch(apiUrl)
         .then(response => response.json())
@@ -19,7 +18,7 @@ function listarBeneficios() {
         .catch(error => console.error('Erro ao listar benefícios:', error));
 }
 
-// Função para criar um benefício
+// funcao para criar
 document.getElementById('create-beneficio-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -34,13 +33,13 @@ document.getElementById('create-beneficio-form').addEventListener('submit', func
         body: JSON.stringify(beneficio),
     })
     .then(() => {
-        listarBeneficios(); // Recarrega a lista após a criação
-        document.getElementById('descricao').value = ''; // Limpa o campo de entrada
+        listarBeneficios();
+        document.getElementById('descricao').value = '';
     })
     .catch(error => console.error('Erro ao criar benefício:', error));
 });
 
-// Função para atualizar um benefício
+// funcao para atualizar
 document.getElementById('update-btn').addEventListener('click', function() {
     const id = document.getElementById('update-id').value;
     const descricao = document.getElementById('update-descricao').value;
@@ -55,14 +54,13 @@ document.getElementById('update-btn').addEventListener('click', function() {
         body: JSON.stringify(beneficio),
     })
     .then(() => {
-        listarBeneficios(); // Recarrega a lista após a atualização
+        listarBeneficios();
         document.getElementById('update-id').value = '';
         document.getElementById('update-descricao').value = '';
     })
     .catch(error => console.error('Erro ao atualizar benefício:', error));
 });
 
-// Função para deletar um benefício
 function deletarBeneficioById(id) {
     fetch(`${apiUrl}/${id}`, {
         method: "DELETE"
@@ -73,5 +71,4 @@ function deletarBeneficioById(id) {
     .catch(error => console.error("Erro ao deletar o benefício:", error));
 }
 
-// Carregar os benefícios ao iniciar
 listarBeneficios();

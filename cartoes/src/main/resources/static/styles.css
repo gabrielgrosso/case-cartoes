@@ -2,20 +2,21 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #121212; /* Fundo escuro */
+    color: #e0e0e0; /* Texto claro */
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #ffffff; /* Título em branco */
 }
 
 .form-container {
-    background-color: white;
+    background-color: #1e1e1e; /* Fundo da área do formulário mais escuro */
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra mais forte */
 }
 
 input[type="text"] {
@@ -23,21 +24,27 @@ input[type="text"] {
     width: 300px;
     margin-right: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #444; /* Borda escura */
+    background-color: #2b2b2b; /* Fundo do input escuro */
+    color: #e0e0e0; /* Texto claro */
     border-radius: 5px;
+}
+
+input[type="text"]::placeholder {
+    color: #888; /* Cor do placeholder */
 }
 
 button {
     padding: 10px 20px;
-    background-color: #5cb85c;
-    color: white;
+    background-color: #0011ff; /* Botão verde */
+    color: #ffffff; /* Texto branco */
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #4223f0; /* Cor do botão ao passar o mouse */
 }
 
 ul {
@@ -47,9 +54,9 @@ ul {
 
 li {
     padding: 10px;
-    background-color: white;
+    background-color: #1e1e1e; /* Fundo escuro dos itens */
     margin-bottom: 5px;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra mais forte */
+    color: #e0e0e0; /* Texto claro */
 }
-

@@ -1,6 +1,5 @@
 const apiUrl = "http://localhost:8080/api/cartoes";
 
-// Função para listar todos os cartões
 function listarCartoes() {
     fetch(apiUrl)
         .then(response => response.json())
@@ -71,12 +70,11 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
     const nivelCartao = document.getElementById("nivelCartao-update").value.toUpperCase();
     const beneficios = document.getElementById("beneficios-update").value.split(",").map(beneficio => beneficio.trim()).filter(beneficio => beneficio !== "");
 
-    // Se benefícios estiver vazio, pode ser um array vazio ou você pode omitir o campo.
     const updatedCartao = {
         nome,
         bandeira,
         nivelCartao,
-        beneficios: beneficios.length > 0 ? beneficios : []  // Envia um array vazio caso não tenha benefícios
+        beneficios: beneficios.length > 0 ? beneficios : [] 
     };
 
     fetch(`${apiUrl}/${id}`, {
