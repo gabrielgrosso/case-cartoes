@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Benefícios</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciamento de Benefícios</h1>
+
+        <div>
+            <h2>Benefícios Cadastrados</h2>
+            <ul id="beneficios-list"></ul>
+        </div>
+
+        <div>
+            <h2>Criar Benefício</h2>
+            <form id="create-beneficio-form">
+                <input type="text" id="descricao" placeholder="Descrição do benefício" required>
+                <button type="submit">Criar Benefício</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>Atualizar Benefício</h2>
+            <input type="text" id="update-id" placeholder="ID do benefício" required>
+            <input type="text" id="update-descricao" placeholder="Nova descrição" required>
+            <button id="update-btn">Atualizar</button>
+        </div>
+
+    </div>
+
+    <script src="../static/app-beneficio.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartões API</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Gestão de Cartões</h1>
+
+    <div>
+        <h2>Cartões Cadastrados</h2>
+        <ul id="cartoes-list"></ul>
+    </div>
+
+    <div>
+        <h2>Criar Cartão</h2>
+        <form id="create-cartao-form">
+            <input type="text" id="nome" placeholder="Nome do Cartão" required>
+            <input type="text" id="bandeira" placeholder="Bandeira" required>
+            <input type="text" id="nivelCartao" placeholder="Nível do Cartão" required>
+            <input type="text" id="beneficios" placeholder="Benefícios (IDs separados por vírgula)">
+            <button type="submit">Criar Cartão</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Atualizar Cartão</h2>
+        <form id="update-cartao-form">
+            <input type="text" id="id-update" placeholder="ID do Cartão" required>
+            <input type="text" id="nome-update" placeholder="Nome do Cartão">
+            <input type="text" id="bandeira-update" placeholder="Bandeira">
+            <input type="text" id="nivelCartao-update" placeholder="Nível do Cartão">
+            <input type="text" id="beneficios-update" placeholder="Benefícios (IDs separados por vírgula)">
+            <button type="submit">Atualizar Cartão</button>
+        </form>
+    </div>
+
+</div>
+
+<script src="../static/app-cartao.js"></script>
+</body>
+</html>
