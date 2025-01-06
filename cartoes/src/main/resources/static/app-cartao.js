@@ -14,7 +14,7 @@ function listarCartoes() {
 
                 const li = document.createElement("li");
                 li.innerHTML = `
-                    <strong>Id do cartão: </strong>${cartao.id} </br>
+                    <strong>ID do cartão: </strong>${cartao.id} </br>
                     <strong>Nome do cartão: </strong>${cartao.nome} </br>
                     <strong>Bandeira do cartão: </strong>${cartao.bandeira} </br>
                     <strong>Nível do cartão: </strong>${cartao.nivelCartao} </br>
@@ -29,7 +29,7 @@ function listarCartoes() {
 
 
 // Função para criar um novo cartão
-document.getElementById("create-cartao-form").addEventListener("submit", function(event) {
+document.getElementById("create-cartao-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
     const nome = document.getElementById("nome").value.toUpperCase();
@@ -52,16 +52,16 @@ document.getElementById("create-cartao-form").addEventListener("submit", functio
         },
         body: JSON.stringify(newCartao)
     })
-    .then(() => {
-        alert("Cartão criado com sucesso!");
-        listarCartoes();
-    })
-    .catch(error => console.error("Erro ao criar o cartão:", error));
+        .then(() => {
+            alert("Cartão criado com sucesso!");
+            listarCartoes();
+        })
+        .catch(error => console.error("Erro ao criar o cartão:", error));
 });
 
 
 // Função para atualizar um cartão
-document.getElementById("update-cartao-form").addEventListener("submit", function(event) {
+document.getElementById("update-cartao-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
     const id = document.getElementById("id-update").value;
@@ -74,7 +74,7 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
         nome,
         bandeira,
         nivelCartao,
-        beneficios: beneficios.length > 0 ? beneficios : [] 
+        beneficios: beneficios.length > 0 ? beneficios : []
     };
 
     fetch(`${apiUrl}/${id}`, {
@@ -84,12 +84,12 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
         },
         body: JSON.stringify(updatedCartao)
     })
-    .then(response => response.json())
-    .then(() => {
-        alert("Cartão atualizado com sucesso!");
-        listarCartoes();
-    })
-    .catch(error => console.error("Erro ao atualizar o cartão:", error));
+        .then(response => response.json())
+        .then(() => {
+            alert("Cartão atualizado com sucesso!");
+            listarCartoes();
+        })
+        .catch(error => console.error("Erro ao atualizar o cartão:", error));
 });
 
 
@@ -98,11 +98,37 @@ function deletarCartaoById(id) {
     fetch(`${apiUrl}/${id}`, {
         method: "DELETE"
     })
-    .then(() => {
-        alert("Cartão deletado com sucesso!");
-        listarCartoes();
+        .then(() => {
+            alert("Cartão deletado com sucesso!");
+            listarCartoes();
+        })
+        .catch(error => console.error("Erro ao deletar o cartão:", error));
+}
+
+const apiBeneficios = 'http://localhost:8080/api/beneficios'
+
+function verBeneficios() {
+    fetch(apiBeneficios).then(response => response.json()).then(beneficios => {
+        const list = document.getElementById('beneficios-list');
+        list.innerHTML = '';
+        beneficios.forEach(beneficio => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                                <strong> ID: </strong> ${beneficio.id} </br>
+                                <strong> Descrição: </strong> ${beneficio.descricao} </br>
+                                <button onclick="deletarBeneficioById('${beneficio.id}')">Deletar</button>
+                           `;
+            list.appendChild(li);
+        });
+        list.innerHTML += `<button onclick="esconderBeneficios()">Esconder benefícios</button>`
     })
-    .catch(error => console.error("Erro ao deletar o cartão:", error));
+        .catch(error => console.error('Erro ao listar benefícios:', error));
+
+}
+
+function esconderBeneficios(){
+    const list = document.getElementById('beneficios-list');
+    list.innerHTML = '';
 }
 
 listarCartoes()

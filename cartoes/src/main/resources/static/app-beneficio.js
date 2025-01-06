@@ -9,7 +9,7 @@ function listarBeneficios() {
             beneficios.forEach(beneficio => {
                 const li = document.createElement('li');
                 li.innerHTML = `
-                                <strong> ID: </strong> ${beneficio.id} </br>
+                                <strong> ID do benefício: </strong> ${beneficio.id} </br>
                                 <strong> Descrição: </strong> ${beneficio.descricao} </br>
                                 <button onclick="deletarBeneficioById('${beneficio.id}')">Deletar</button>`;
                 list.appendChild(li);
@@ -22,7 +22,7 @@ function listarBeneficios() {
 document.getElementById('create-beneficio-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const descricao = document.getElementById('descricao').value;
+    const descricao = document.getElementById('descricao').value.toUpperCase();
     const beneficio = { descricao };
 
     fetch(apiUrl, {
@@ -42,7 +42,7 @@ document.getElementById('create-beneficio-form').addEventListener('submit', func
 // funcao para atualizar
 document.getElementById('update-btn').addEventListener('click', function() {
     const id = document.getElementById('update-id').value;
-    const descricao = document.getElementById('update-descricao').value;
+    const descricao = document.getElementById('update-descricao').value.toUpperCase();
 
     const beneficio = { descricao };
 

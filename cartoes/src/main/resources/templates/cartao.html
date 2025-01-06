@@ -38,26 +38,21 @@
                 <input type="text" id="beneficios-update" placeholder="Benefícios (IDs separados por vírgula)">
                 <button type="submit">Atualizar Cartão</button>
             </form>
+            <button onclick="verBeneficios()">Ver benefícios</button>
+        </div>
+
+        <div>
+            <ul id="beneficios-list"></ul>
+        </div>
+
+        <div>
+            <br>
+            <button onclick="window.location.href='beneficio.html'">Ir para Benefícios</button>
         </div>
 
     </div>
 
     <script src="../static/app-cartao.js"></script>
-    <script>
-        var lugarBandeiras = document.getElementById("bandeira-update")
-        const bandeiras = [
-            "MASTERCARD",
-            "VISA",
-            "AMEX",
-            "ELO"
-        ]
-
-        for(var i = 0; i < bandeiras.length; i++){
-            lugarBandeiras.innerHTML += `
-                <option value="${bandeiras[i]}"> ${bandeiras[i]} </option>
-            `
-        }
-    </script>
 </body>
 
 </html>
