@@ -28,15 +28,14 @@ function listarCartoes() {
 }
 
 
-// Função para criar um novo cartão
 document.getElementById("create-cartao-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
     const nome = document.getElementById("nome").value.toUpperCase();
     const bandeira = document.getElementById("bandeira").value.toUpperCase();
     const nivelCartao = document.getElementById("nivelCartao").value.toUpperCase();
-    const beneficiosInput = document.getElementById("beneficios").value;
-    const beneficios = beneficiosInput ? beneficiosInput.split(",").map(id => id.trim()) : []; // Se não tiver valor, será um array vazio
+    const beneficiosSelect = document.getElementById("beneficios");
+    const beneficios = Array.from(beneficiosSelect.selectedOptions).map(option => option.value);
 
     const newCartao = {
         nome,
@@ -56,11 +55,11 @@ document.getElementById("create-cartao-form").addEventListener("submit", functio
             listarCartoes();
         })
         .catch(error => console.error("Erro ao criar o cartão:", error));
-        location.reload();
+        location.reload()
 });
 
 
-// Função para atualizar um cartão
+
 document.getElementById("update-cartao-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -68,13 +67,14 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
     const nome = document.getElementById("nome-update").value.toUpperCase();
     const bandeira = document.getElementById("bandeira-update").value.toUpperCase();
     const nivelCartao = document.getElementById("nivelCartao-update").value.toUpperCase();
-    const beneficios = document.getElementById("beneficios-update").value.split(",").map(beneficio => beneficio.trim()).filter(beneficio => beneficio !== "");
+    const beneficiosUpdateSelect = document.getElementById("beneficios-update");
+    const beneficios = Array.from(beneficiosUpdateSelect.selectedOptions).map(option => option.value);
 
     const updatedCartao = {
         nome,
         bandeira,
         nivelCartao,
-        beneficios: beneficios.length > 0 ? beneficios : []
+        beneficios
     };
 
     fetch(`${apiUrl}/${id}`, {
@@ -89,7 +89,9 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
             listarCartoes();
         })
         .catch(error => console.error("Erro ao atualizar o cartão:", error));
+        location.reload()
 });
+
 
 
 // Função para deletar um cartão diretamente da lista
@@ -101,32 +103,49 @@ function deletarCartaoById(id) {
             listarCartoes();
         })
         .catch(error => console.error("Erro ao deletar o cartão:", error));
+        location.reload()
 }
 
 const apiBeneficios = 'http://localhost:8080/api/beneficios'
 
-function verBeneficios() {
-    fetch(apiBeneficios).then(response => response.json()).then(beneficios => {
-        const list = document.getElementById('beneficios-list');
-        list.innerHTML = '';
-        beneficios.forEach(beneficio => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                                <strong> ID: </strong> ${beneficio.id} </br>
-                                <strong> Descrição: </strong> ${beneficio.descricao} </br>
-                                <button onclick="deletarBeneficioById('${beneficio.id}')">Deletar</button>
-                           `;
-            list.appendChild(li);
-        });
-        list.innerHTML += `<button onclick="esconderBeneficios()">Esconder benefícios</button>`
-    })
-        .catch(error => console.error('Erro ao listar benefícios:', error));
-
+function selectBeneficios() {
+    const lugarBeneficios = document.getElementById("beneficios");
+    const lugarBeneficiosUpdate = document.getElementById("beneficios-update");
+    fetch(apiBeneficios)
+        .then(response => response.json())
+        .then(beneficios => {
+            if(beneficios.length == 0){
+                lugarBeneficiosUpdate.innerHTML += `
+                <option value="" disabled>Não há benefícios cadastrados.</option>
+            `;
+                lugarBeneficios.innerHTML += `
+                <option value="" disabled>Não há benefícios cadastrados.</option>
+            `;
+            }
+            beneficios.forEach(beneficio => {
+                lugarBeneficiosUpdate.innerHTML += `
+                    <option value="${beneficio.id}">${beneficio.descricao}</option>
+                `;
+                lugarBeneficios.innerHTML += `
+                    <option value="${beneficio.id}">${beneficio.descricao}</option>
+                `;
+            });
+        })
+        .catch(error => console.error("Erro ao carregar benefícios:", error));
 }
 
-function esconderBeneficios(){
-    const list = document.getElementById('beneficios-list');
-    list.innerHTML = '';
+function verIdsCartoesUpdate(){
+    const lugarIdCartoesUpdate = document.getElementById("id-update")
+    fetch(apiUrl).then(response => response.json()).then(cartoes => {
+        if(cartoes.length == 0){
+            lugarIdCartoesUpdate.innerHTML += `<option value="" disabled>Não há cartões cadastrados.</option>`
+        }
+        cartoes.forEach(cartao => {
+            lugarIdCartoesUpdate.innerHTML += `<option value="${cartao.id}">${cartao.id}</option>`
+        })
+    })
 }
 
 listarCartoes()
+selectBeneficios()
+verIdsCartoesUpdate()

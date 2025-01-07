@@ -37,6 +37,7 @@ document.getElementById('create-beneficio-form').addEventListener('submit', func
         document.getElementById('descricao').value = '';
     })
     .catch(error => console.error('Erro ao criar benefício:', error));
+    location.reload()
 });
 
 // funcao para atualizar
@@ -59,6 +60,7 @@ document.getElementById('update-btn').addEventListener('click', function() {
         document.getElementById('update-descricao').value = '';
     })
     .catch(error => console.error('Erro ao atualizar benefício:', error));
+    location.reload()
 });
 
 function deletarBeneficioById(id) {
@@ -69,6 +71,21 @@ function deletarBeneficioById(id) {
         listarBeneficios();
     })
     .catch(error => console.error("Erro ao deletar o benefício:", error));
+    location.reload()
 }
+
+function verIdsBeneficiosUpdate(){
+    const lugarIdBeneficiosUpdate = document.getElementById("update-id")
+    fetch(apiUrl).then(response => response.json()).then(beneficios => {
+        if(beneficios.length == 0){
+            lugarIdBeneficiosUpdate.innerHTML += `<option value="" disabled>Não há benefícios cadastrados.</option>`
+        }
+        beneficios.forEach(beneficio => {
+            lugarIdBeneficiosUpdate.innerHTML += `<option value="${beneficio.id}">${beneficio.id}</option>`
+        })
+    })
+}
+
+verIdsBeneficiosUpdate()
 
 listarBeneficios();

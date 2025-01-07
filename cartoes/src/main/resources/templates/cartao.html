@@ -21,24 +21,45 @@
             <h2>Criar Cartão</h2>
             <form id="create-cartao-form">
                 <input type="text" id="nome" placeholder="Nome do Cartão" required>
-                <input type="text" id="bandeira" placeholder="Bandeira" required>
-                <input type="text" id="nivelCartao" placeholder="Nível do Cartão" required>
-                <input type="text" id="beneficios" placeholder="Benefícios (IDs separados por vírgula)">
-                <button type="submit" onclick="limpar()">Criar Cartão</button>
+                <select id="bandeira" required>
+                    <option value="" disabled selected>Selecione a Bandeira</option>
+                    <option value="visa">Visa</option>
+                    <option value="mastercard">MasterCard</option>
+                    <option value="elo">Elo</option>
+                </select>
+                <select id="nivelCartao" required>
+                    <option value="" disabled selected>Selecione o Nível do Cartão</option>
+                    <option value="gold">Gold</option>
+                    <option value="platinum">Platinum</option>
+                    <option value="black">Black</option>
+                </select>
+                <select id="beneficios" multiple></select>
+                <button type="submit">Criar Cartão</button>
             </form>
         </div>
 
         <div>
             <h2>Atualizar Cartão</h2>
             <form id="update-cartao-form">
-                <input type="text" id="id-update" placeholder="ID do Cartão" required>
+                <select id="id-update" required>
+                    <option value="" disabled selected>Selecione o ID do cartão</option>
+                </select>
                 <input type="text" id="nome-update" placeholder="Nome do Cartão">
-                <input type="text" id="bandeira-update" placeholder="Bandeira">
-                <input type="text" id="nivelCartao-update" placeholder="Nível do Cartão">
-                <input type="text" id="beneficios-update" placeholder="Benefícios (IDs separados por vírgula)">
+                <select id="bandeira-update" required>
+                    <option value="" disabled selected>Selecione a Bandeira</option>
+                    <option value="visa">VISA</option>
+                    <option value="mastercard">MASTERCARD</option>
+                    <option value="elo">ELO</option>
+                </select>
+                <select id="nivelCartao-update" required>
+                    <option value="" disabled selected>Selecione o Nível do Cartão</option>
+                    <option value="gold">GOLD</option>
+                    <option value="platinum">PLATINUM</option>
+                    <option value="black">BLACK</option>
+                </select>
+                <select id="beneficios-update" multiple></select>
                 <button type="submit">Atualizar Cartão</button>
             </form>
-            <button onclick="verBeneficios()">Ver benefícios</button>
         </div>
 
         <div>
