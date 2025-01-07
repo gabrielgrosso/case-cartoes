@@ -1,2 +1,0 @@
-ID: 04bbba18-3785-483e-8a75-63c737897bc5, Bandeira: 1, Nível: 1, Nome: CARTÃO VISA PLATINUM
-ID: 213016ee-ce44-4097-9da9-21e224bba4ab, Bandeira: 1, Nível: 1, Nome: CARTÃO VISA PLATINUM

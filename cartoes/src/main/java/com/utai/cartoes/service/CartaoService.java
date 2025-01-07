@@ -4,9 +4,7 @@ import com.utai.cartoes.entities.*;
 import com.utai.cartoes.entities.dto.CartaoDTO;
 import com.utai.cartoes.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,25 +34,37 @@ public class CartaoService {
         if (cartaoExistente.isPresent()) {
             Cartao cartao = cartaoExistente.get();
 
-            cartao.setNome(cartaoAtualizado.getNome());
-            cartao.setBandeira(cartaoAtualizado.getBandeira());
-            cartao.setNivelCartao(cartaoAtualizado.getNivelCartao());
-
-            List<Beneficio> beneficios = new ArrayList<>();
-            for (UUID beneficioId : cartaoAtualizado.getBeneficios()) {
-                Beneficio beneficio = beneficioRepo.findById(beneficioId)
-                        .orElseThrow(() -> new RuntimeException("Benefício não encontrado: " + beneficioId));
-                beneficios.add(beneficio);
+            // Atualiza apenas se os valores forem fornecidos no DTO
+            if (cartaoAtualizado.getNome() != null && !cartaoAtualizado.getNome().isEmpty()) {
+                cartao.setNome(cartaoAtualizado.getNome());
             }
-            cartao.setBeneficios(beneficios);
+
+            if (cartaoAtualizado.getBandeira() != null) {
+                cartao.setBandeira(cartaoAtualizado.getBandeira());
+            }
+
+            if (cartaoAtualizado.getNivelCartao() != null) {
+                cartao.setNivelCartao(cartaoAtualizado.getNivelCartao());
+            }
+
+            if (cartaoAtualizado.getBeneficios() != null && !cartaoAtualizado.getBeneficios().isEmpty()) {
+                List<Beneficio> beneficios = new ArrayList<>();
+                for (UUID beneficioId : cartaoAtualizado.getBeneficios()) {
+                    Beneficio beneficio = beneficioRepo.findById(beneficioId)
+                            .orElseThrow(() -> new RuntimeException("Benefício não encontrado: " + beneficioId));
+                    beneficios.add(beneficio);
+                }
+                cartao.setBeneficios(beneficios);
+            }
 
             cartaoRepo.save(cartao);
 
             return Optional.of(cartao);
         }
 
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erro ao atualizar dados do cartão com id " + id);
+        return Optional.empty();
     }
+
 
     public Optional<Cartao> buscaPorId(UUID id) {
         return cartaoRepo.findById(id);

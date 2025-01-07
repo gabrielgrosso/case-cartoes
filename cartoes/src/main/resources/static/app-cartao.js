@@ -7,7 +7,6 @@ function listarCartoes() {
             const cartoesList = document.getElementById("cartoes-list");
             cartoesList.innerHTML = "";
             cartoes.forEach(cartao => {
-                // Se benefícios estiver vazio ou indefinido, exibe "Sem benefícios"
                 const beneficios = cartao.beneficios && cartao.beneficios.length > 0
                     ? cartao.beneficios.map(beneficio => beneficio.descricao).join(", ")
                     : "Sem benefícios";
@@ -64,18 +63,17 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
     event.preventDefault();
 
     const id = document.getElementById("id-update").value;
-    const nome = document.getElementById("nome-update").value.toUpperCase();
-    const bandeira = document.getElementById("bandeira-update").value.toUpperCase();
-    const nivelCartao = document.getElementById("nivelCartao-update").value.toUpperCase();
+    const nome = document.getElementById("nome-update").value.trim();
+    const bandeira = document.getElementById("bandeira-update").value.trim();
+    const nivelCartao = document.getElementById("nivelCartao-update").value.trim();
     const beneficiosUpdateSelect = document.getElementById("beneficios-update");
     const beneficios = Array.from(beneficiosUpdateSelect.selectedOptions).map(option => option.value);
 
-    const updatedCartao = {
-        nome,
-        bandeira,
-        nivelCartao,
-        beneficios
-    };
+    const updatedCartao = {};
+    if (nome) updatedCartao.nome = nome.toUpperCase();
+    if (bandeira) updatedCartao.bandeira = bandeira.toUpperCase();
+    if (nivelCartao) updatedCartao.nivelCartao = nivelCartao.toUpperCase();
+    if (beneficios.length > 0) updatedCartao.beneficios = beneficios;
 
     fetch(`${apiUrl}/${id}`, {
         method: "PUT",
@@ -84,7 +82,12 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
         },
         body: JSON.stringify(updatedCartao)
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro ao atualizar o cartão.");
+            }
+            return response.json();
+        })
         .then(() => {
             listarCartoes();
         })
@@ -94,7 +97,6 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
 
 
 
-// Função para deletar um cartão diretamente da lista
 function deletarCartaoById(id) {
     fetch(`${apiUrl}/${id}`, {
         method: "DELETE"
