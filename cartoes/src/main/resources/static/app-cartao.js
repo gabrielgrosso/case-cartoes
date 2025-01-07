@@ -53,10 +53,10 @@ document.getElementById("create-cartao-form").addEventListener("submit", functio
         body: JSON.stringify(newCartao)
     })
         .then(() => {
-            alert("Cartão criado com sucesso!");
             listarCartoes();
         })
         .catch(error => console.error("Erro ao criar o cartão:", error));
+        location.reload();
 });
 
 
@@ -86,7 +86,6 @@ document.getElementById("update-cartao-form").addEventListener("submit", functio
     })
         .then(response => response.json())
         .then(() => {
-            alert("Cartão atualizado com sucesso!");
             listarCartoes();
         })
         .catch(error => console.error("Erro ao atualizar o cartão:", error));
@@ -99,7 +98,6 @@ function deletarCartaoById(id) {
         method: "DELETE"
     })
         .then(() => {
-            alert("Cartão deletado com sucesso!");
             listarCartoes();
         })
         .catch(error => console.error("Erro ao deletar o cartão:", error));
