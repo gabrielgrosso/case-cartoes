@@ -38,11 +38,19 @@ public class BeneficioService {
     }
 
     public Optional<Beneficio> buscaPorId(UUID id) {
-        return beneficioRepo.findById(id);
+        Optional<Beneficio> beneficioExistente = beneficioRepo.findById(id);
+        if (beneficioExistente.isPresent()) {
+            return beneficioRepo.findById(id);
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Benefício com id " + id + " não encontrado.");
     }
 
     public void deletaBeneficio(UUID id) {
-        beneficioRepo.deleteById(id);
+        Optional<Beneficio> beneficioExistente = beneficioRepo.findById(id);
+        if (beneficioExistente.isPresent()) {
+            beneficioRepo.deleteById(id);
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Benefício com id " + id + " não encontrado.");
     }
 
 }

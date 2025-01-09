@@ -23,7 +23,7 @@ public class BeneficioController {
     }
 
     @PostMapping
-    public void criaBeneficio(@RequestBody Beneficio beneficio){
+    public void criaBeneficio(@RequestBody Beneficio beneficio) {
         beneficioService.criaBeneficio(beneficio);
     }
 

@@ -2,6 +2,7 @@ package com.utai.cartoes.entities;
 
 import com.utai.cartoes.enums.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,8 +12,11 @@ import java.util.UUID;
 public class Cartao {
     @Id
     private UUID id = UUID.randomUUID();
+    @NotNull
     private String nome;
+    @NotNull
     private Bandeira bandeira;
+    @NotNull
     private NivelCartao nivelCartao;
 
     @ManyToMany

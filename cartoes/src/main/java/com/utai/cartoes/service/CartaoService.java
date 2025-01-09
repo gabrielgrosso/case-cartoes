@@ -34,7 +34,6 @@ public class CartaoService {
         if (cartaoExistente.isPresent()) {
             Cartao cartao = cartaoExistente.get();
 
-            // Atualiza apenas se os valores forem fornecidos no DTO
             if (cartaoAtualizado.getNome() != null && !cartaoAtualizado.getNome().isEmpty()) {
                 cartao.setNome(cartaoAtualizado.getNome());
             }

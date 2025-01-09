@@ -1,4 +1,4 @@
-package com.utai.cartoes.service;
+package com.utai.cartoes.bd;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -10,15 +10,12 @@ import java.sql.Statement;
 import org.postgresql.PGConnection;
 
 public class PostgresListenerToTextFile {
-
-    // Detalhes de conexão com o banco
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USER = "postgres";
     private static final String PASSWORD = "root";
 
     public static void main(String[] args) {
-        String fileName = "C:\\Users\\GAL1L\\Desktop\\case-cartoes\\cartoes\\src\\main\\resources\\" +
-                "export-txt\\cartoes.txt";
+        String fileName = "src/main/resources/export-txt/cartoes.txt";
 
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
              Statement stmt = connection.createStatement()) {
